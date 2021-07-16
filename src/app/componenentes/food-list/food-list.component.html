@@ -1,0 +1,80 @@
+<div>
+  <div>
+    <hr />
+    <h3>Buscar</h3>
+    <input
+      id="namesearch"
+      placeholder="name"
+      type="text"
+      [(ngModel)]="pattern"
+    />
+    <hr />
+
+    <button (click)="verFormularioAlta(true)" *ngIf="!verForm">
+      Añadir nuevo
+    </button>
+    <div *ngIf="verForm">
+      <h3>Alta nuevo alimento</h3>
+      <form
+        #formAltaAlimento="ngForm"
+        (ngSubmit)="altaAlimento(formAltaAlimento)"
+      >
+        <label for="name">Nombre</label
+        ><input
+          type="text"
+          name="name"
+          #name="ngModel"
+          [(ngModel)]="foodsmodel.name"
+          required
+        /><br />
+        <label for="calories">Calorias</label
+        ><input
+          type="text"
+          name="calories"
+          #calories="ngModel"
+          [(ngModel)]="foodsmodel.calories"
+          required
+        /><br />
+        <label for="image">Imagen</label
+        ><input
+          type="text"
+          name="image"
+          #image="ngModel"
+          [(ngModel)]="foodsmodel.image"
+          required
+        /><br />
+        <label for="quantity">Cantidad</label>
+        <input
+          type="text"
+          name="quantity"
+          #quantity="ngModel"
+          [(ngModel)]="foodsmodel.quantity"
+          reuqired
+        /><br />
+        <input
+          type="submit"
+          value="Enviar"
+          [disabled]="!formAltaAlimento.form.valid"
+        />
+      </form>
+    </div>
+    <hr />
+  </div>
+  <div
+    *ngFor="let alimento of alimentos | foodspipe: 'name':pattern"
+    class="caja"
+  >
+    <img src="{{ alimento.image }}" width="100" style="border-radius: 50%" />
+    <span>{{ alimento.name }}</span>
+    <form #alimentosForm="ngForm" (ngSubmit)="getAlimentos()">
+      <button>+</button>
+      <input
+        type="text"
+        name="quantity"
+        #quantity="ngModel"
+        [(ngModel)]="alimento.quantity"
+        class="quantity"
+      />
+    </form>
+  </div>
+</div>
